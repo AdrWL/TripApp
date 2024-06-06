@@ -6,7 +6,7 @@ import { BottomTabNavigator } from './src/navigators/BottomTabNavigator';
 export default function App() {
   return (
     <NavigationContainer>
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ overflow: 'visible' }}>
         <BottomTabNavigator />
       </SafeAreaProvider>
     </NavigationContainer>
