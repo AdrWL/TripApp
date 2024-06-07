@@ -1,8 +1,31 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import { View, Text, StyleSheet, Image, TextInput, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import profileImage from "../../assets/images/profile.jpg";
+import towerImage from "../../assets/images/Tower.jpg";
+import saintImage from "../../assets/images/Saint.jpg";
 import { Bell, Search } from "../../assets/icons/index";
+
+const CITIES = [
+  {
+    id: "0",
+    city: "Saint Moritz",
+    image: saintImage,
+  },
+  {
+    id: "1",
+    city: "Tower Bridge",
+    image: towerImage,
+  },
+];
+
+const Item = ({ city, image }) => (
+  <View style={styles.item}>
+    <Image source={image} style={styles.itemImage} />
+    <Text style={styles.city}>{city}</Text>
+  </View>
+);
 
 export const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,15 +49,20 @@ export const HomeScreen = () => {
           onChangeText={(text) => setSearchQuery(text)}
           placeholder="Search"
           style={[styles.input, { paddingLeft: 40 }]}
-        >
-        </TextInput>
+        />
       </View>
-      <View style={{ paddingTop: 10 }}>
+      <View style={{ paddingTop: 20 }}>
         <Text style={styles.info}>Popular Destinations</Text>
       </View>
-      <View>
-
-      </View>
+      <SafeAreaView>
+        <FlatList
+          data={CITIES}
+          renderItem={({ item }) => <Item city={item.city} image={item.image} />}
+          keyExtractor={(item) => item.id}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+      </SafeAreaView>
     </View>
   );
 };
@@ -71,5 +99,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 12,
     borderRadius: 8,
+  },
+  item: {
+    width: 225,
+    height: 225,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  itemImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+  },
+  city: {
+    fontSize: 16,
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
