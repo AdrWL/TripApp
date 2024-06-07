@@ -54,11 +54,11 @@ export const MyProfileScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     marginTop: 50,
   },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
   },
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 16,
-    color: "#666",
   },
 });
 
