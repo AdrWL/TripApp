@@ -1,34 +1,62 @@
-import React from 'react';
-import { useState } from 'react';
-import { View, Text, StyleSheet, Image, TextInput, FlatList } from "react-native";
+import React from "react";
+import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  FlatList,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import profileImage from "../../assets/images/profile.jpg";
 import towerImage from "../../assets/images/Tower.jpg";
 import saintImage from "../../assets/images/Saint.jpg";
-import { Bell, Search } from "../../assets/icons/index";
+import { Bell, Search, Location } from "../../assets/icons/index";
 
 const CITIES = [
   {
     id: "0",
     city: "Saint Moritz",
     image: saintImage,
+    price: "$1200",
+    persons: "person",
+    location: "Zurich, Switzerland",
+    rating: "5.0 (6k Review)",
   },
   {
     id: "1",
     city: "Tower Bridge",
     image: towerImage,
+    price: "$890",
+    persons: "person",
+    location: "London, United Kingdom",
+    rating: "5.0 (2.5k Review)",
   },
 ];
 
-const Item = ({ city, image }) => (
+const Item = ({ city, image, price, persons, location, rating }) => (
   <View style={styles.item}>
     <Image source={image} style={styles.itemImage} />
-    <Text style={styles.city}>{city}</Text>
+    <View style={styles.textContainer}>
+      <View style={styles.row}>
+        <Text style={styles.city}>{city}</Text>
+        <Text style={styles.price}>
+          <Text style={{ color: "#0000FF", fontWeight: "bold" }}>{price}</Text>/{persons}
+        </Text>
+      </View>
+      <View style={styles.locationContainer}>
+        <Location />
+        <Text style={styles.location}>{location}</Text>
+      </View>
+      <Text style={styles.rating}>⭐ {rating}</Text>
+    </View>
   </View>
 );
 
+
 export const HomeScreen = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <View style={styles.container}>
@@ -43,7 +71,7 @@ export const HomeScreen = () => {
         </View>
       </View>
       <View style={styles.searchContainer}>
-        <Search style={{ position: 'absolute', left: 10, top: 24 }} />
+        <Search style={{ position: "absolute", left: 10, top: 24 }} />
         <TextInput
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
@@ -54,15 +82,18 @@ export const HomeScreen = () => {
       <View style={{ paddingTop: 20 }}>
         <Text style={styles.info}>Popular Destinations</Text>
       </View>
-      <SafeAreaView>
+      <SafeAreaView style={styles.listContainer} edges={[]}>
         <FlatList
           data={CITIES}
-          renderItem={({ item }) => <Item city={item.city} image={item.image} />}
+          renderItem={({ item }) => <Item {...item} />}
           keyExtractor={(item) => item.id}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         />
       </SafeAreaView>
+      <View style={{ paddingTop: 20 }}>
+        <Text style={styles.info}>Recommendation</Text>
+      </View>
     </View>
   );
 };
@@ -95,30 +126,58 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
     padding: 12,
     borderRadius: 8,
   },
+  listContainer: {
+    marginTop: 15,
+  },
   item: {
     width: 225,
     height: 225,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 10,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginEnd: 10,
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
+    backgroundColor: "rgba(0,0,0,0.6)",
   },
   itemImage: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
+    width: "100%",
+    height: "100%",
+    position: "absolute",
     top: 0,
     left: 0,
   },
+  textContainer: {
+    width: "93%",
+    marginBottom: 7,
+    backgroundColor: "#FFF",
+    padding: 10,
+    borderRadius: 8,
+  },
   city: {
     fontSize: 16,
-    color: '#fff',
-    fontWeight: 'bold',
+    fontWeight: "bold",
+  },
+  price: {
+    fontSize: 12,
+    marginLeft: "auto",
+  },
+  locationContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 5,
+  },
+  location: {
+    fontSize: 12,
+    marginLeft: 5,
+  },
+  rating: {
+    fontSize: 12,
+    marginTop: 5,
   },
 });
+
