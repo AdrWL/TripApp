@@ -14,7 +14,7 @@ export const BottomTabNavigator = () => {
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <HomeIcon stroke={color} width={33} height={24} />
+          tabBarIcon: ({ color, focused }) => <HomeIcon stroke={focused ? '#285dfb' : color} width={33} height={24} />
         }}
       />
       <Tab.Screen
@@ -22,7 +22,7 @@ export const BottomTabNavigator = () => {
         component={MyProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <UserCircleIcon stroke={color} width={24} height={24} />
+          tabBarIcon: ({ color, focused }) => <UserCircleIcon stroke={focused ? '#285dfb' : color} width={24} height={24} />
         }}
       />
     </Tab.Navigator>

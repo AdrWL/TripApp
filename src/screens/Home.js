@@ -51,7 +51,7 @@ const CITIES = [
   },
   {
     id: "3",
-    city: "Marina Bay Sands",
+    city: "Marina Bay",
     image: marinaImage,
     price: "$750",
     persons: "person",
@@ -139,7 +139,7 @@ export const HomeScreen = () => {
           style={[styles.input, { paddingLeft: 40 }]}
         />
       </View>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{ paddingTop: 10 }}>
         <Text style={styles.info}>Popular Destinations</Text>
       </View>
       <SafeAreaView style={styles.listContainer} edges={[]}>
@@ -151,7 +151,7 @@ export const HomeScreen = () => {
           showsHorizontalScrollIndicator={false}
         />
       </SafeAreaView>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{ paddingTop: 10 }}>
         <Text style={styles.info}>Recommendation</Text>
       </View>
       <SafeAreaView style={styles.recommendationListContainer} edges={[]}>
@@ -169,7 +169,9 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 20,     
+    paddingRight: 20,   
+    paddingLeft: 20, 
     marginTop: 50,
   },
   row: {
@@ -262,7 +264,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
   },
   itemImageRecommendation: {
-
+    width: 104,
+    height: 104,
+    borderRadius: 10,
   },
   textContainerRecommendation: {
     width: "100%",

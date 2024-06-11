@@ -30,22 +30,20 @@ export const MyProfileScreen = () => {
       <View style={styles.line} />
       <View style={styles.row}>
         <View style={styles.iconContainer}>
-          <DarkModeButton />
+          <DarkModeButton/>
         </View>
         <Text style={styles.textButton}>Dark Mode</Text>
         <Switch
-          style={{ flex: 1 }}
+          style={styles.switch}
           value={darkMode}
           onValueChange={(value) => setDarkMode(value)}
         />
       </View>
-      <TouchableOpacity onPress={handleLogout}>
-        <View style={styles.row}>
-          <View style={styles.iconContainer}>
-            <LogoutButton />
-          </View>
-          <Text style={styles.textButtonLogout}>Logout</Text>
+      <TouchableOpacity onPress={handleLogout} style={styles.row}>
+        <View style={styles.iconContainerLogout}>
+          <LogoutButton style={styles.logoutButtonIcon}/>
         </View>
+        <Text style={styles.textButtonLogout}>Logout</Text>
       </TouchableOpacity>
     </View>
   );
@@ -75,19 +73,38 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 16,
     padding: 10,
+    flex: 1,
   },
   textButtonLogout: {
     fontSize: 16,
     padding: 10,
     color: "red",
+    flex: 1,
   },
   row: {
     flexDirection: "row",
     alignItems: "center",
+    marginVertical: 10,
   },
   iconContainer: {
-    width: 30, 
-    alignItems: 'center',
+    marginRight: 10,
+  },
+  iconContainerLogout: {
+    width: 44,
+    height: 44,
+    backgroundColor: "#ffe7f1",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 22,
+    marginRight: 10,
+  },
+  logoutButtonIcon: {
+    position: "absolute",
+    top: 10,
+    left: 15,
+  },
+  switch: {
+    marginLeft: 'auto',
   },
   name: {
     fontSize: 18,
@@ -97,4 +114,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
