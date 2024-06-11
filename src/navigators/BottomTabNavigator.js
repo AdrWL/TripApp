@@ -14,7 +14,7 @@ export const BottomTabNavigator = () => {
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color }) => <HomeIcon stroke={color} width={24} height={24} />
+          tabBarIcon: ({ color }) => <HomeIcon stroke={color} width={33} height={24} />
         }}
       />
       <Tab.Screen
