@@ -1,3 +1,5 @@
+import 'react-native-get-random-values';
+import { v4 } from 'uuid';
 import towerImage from "../../assets/images/Tower.jpg";
 import saintImage from "../../assets/images/Saint.jpg";
 import adduImage from "../../assets/images/Addu.jpg";
@@ -6,7 +8,7 @@ import charlesImage from "../../assets/images/Charles.jpg";
 
 export const CITIES = [
     {
-      id: "0",
+      id: v4(),
       city: "Saint Moritz",
       image: saintImage,
       price: "$1200",
@@ -17,7 +19,7 @@ export const CITIES = [
       author: "Leila Azevedo",
     },
     {
-      id: "1",
+      id: v4(),
       city: "Tower Bridge",
       image: towerImage,
       price: "$890",
@@ -28,7 +30,7 @@ export const CITIES = [
       author: "David Monaghan",
     },
     {
-      id: "2",
+      id: v4(),
       city: "Addu Atoll",
       image: adduImage,
       price: "$900",
@@ -38,7 +40,7 @@ export const CITIES = [
       review: "1.7",
     },
     {
-      id: "3",
+      id: v4(),
       city: "Marina Bay",
       image: marinaImage,
       price: "$750",
@@ -48,7 +50,7 @@ export const CITIES = [
       review: "2.5",
     },
     {
-      id: "4",
+      id: v4(),
       city: "Charles Bridge",
       image: charlesImage,
       price: "$700",
