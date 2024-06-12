@@ -80,6 +80,7 @@ export const HomeScreen = () => {
         <SafeAreaView style={styles.searchResultsContainer} edges={[]}>
           <FlatList
             data={filteredCities}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.citySearch}>
                 <City {...item} />

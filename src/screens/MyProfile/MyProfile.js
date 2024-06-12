@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Switch,
   TouchableOpacity,
   StyleSheet,
   Image,
 } from "react-native";
-import profileImage from "../../assets/images/profile.jpg";
-import { DarkModeButton, LogoutButton } from "../../assets/icons/index";
+import profileImage from "../../../assets/images/profile.jpg";
+import { DarkModeButton, LogoutButton } from "../../../assets/icons/index";
+import { CustomSwitch } from "./CustomSwitch";
 
 export const MyProfileScreen = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -30,18 +30,14 @@ export const MyProfileScreen = () => {
       <View style={styles.line} />
       <View style={styles.row}>
         <View style={styles.iconContainer}>
-          <DarkModeButton/>
+          <DarkModeButton />
         </View>
         <Text style={styles.textButton}>Dark Mode</Text>
-        <Switch
-          style={styles.switch}
-          value={darkMode}
-          onValueChange={(value) => setDarkMode(value)}
-        />
+        <CustomSwitch value={darkMode} onValueChange={setDarkMode} />
       </View>
       <TouchableOpacity onPress={handleLogout} style={styles.row}>
         <View style={styles.iconContainerLogout}>
-          <LogoutButton style={styles.logoutButtonIcon}/>
+          <LogoutButton style={styles.logoutButtonIcon} />
         </View>
         <Text style={styles.textButtonLogout}>Logout</Text>
       </TouchableOpacity>
@@ -103,8 +99,21 @@ const styles = StyleSheet.create({
     top: 10,
     left: 15,
   },
-  switch: {
-    marginLeft: 'auto',
+  switchContainer: {
+    width: 45,
+    height: 24,
+    borderRadius: 17,
+    backgroundColor: "#ccc",
+    padding: 2,
+    justifyContent: "center",
+  },
+  thumb: {
+    width: 20,
+    height: 20,
+    borderRadius: 15,
+    backgroundColor: "#fff",
+    position: "absolute",
+    top: 2,
   },
   name: {
     fontSize: 18,
