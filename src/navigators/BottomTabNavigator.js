@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen } from '../screens/Home';
+import { HomeScreen } from '../screens/Home/Home';
 import { MyProfileScreen } from '../screens/MyProfile';
 import { HomeIcon, UserCircleIcon } from '../../assets/icons/index';
 
