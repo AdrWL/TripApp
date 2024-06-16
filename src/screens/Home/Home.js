@@ -22,7 +22,7 @@ export const HomeScreen = () => {
     if (searchQuery === "") {
       setFilteredCities([]);
     } else {
-      const results = CITIES.filter(city =>
+      const results = CITIES.filter((city) =>
         city.city.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setFilteredCities(results);
@@ -33,47 +33,51 @@ export const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.row}>
         <Image source={profileImage} style={styles.image} />
-        <View style={{ flex: 1, paddingHorizontal: 10 }}>
+        <View style={styles.user}>
           <Text style={styles.hello}>Hello, Shane</Text>
           <Text style={styles.info}>Where do you want to go?</Text>
         </View>
         <View style={styles.bell}>
-          <Bell style={{ position: "absolute", top: 10 }} />
+          <Bell style={styles.bellSvg} />
         </View>
       </View>
       <View style={styles.searchContainer}>
-        <Search style={{ position: "absolute", left: 10, top: 24 }} />
+        <Search style={styles.searchSvg} />
         <TextInput
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           placeholder="Search"
-          style={[styles.input, { paddingLeft: 40 }]}
+          style={[styles.input]}
         />
       </View>
       {searchQuery === "" ? (
         <>
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.info}>Popular Destinations</Text>
-          </View>
-          <SafeAreaView style={styles.listContainer} edges={[]}>
-            <FlatList
-              data={filterCitiesByReview(true)}
-              renderItem={({ item }) => <City {...item} />}
-              keyExtractor={(item) => item.id}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            />
-          </SafeAreaView>
-          <View style={{ paddingTop: 10 }}>
-            <Text style={styles.info}>Recommendation</Text>
-          </View>
-          <SafeAreaView style={styles.recommendationListContainer} edges={[]}>
-            <FlatList
-              data={filterCitiesByReview(false)}
-              renderItem={({ item }) => <CityRecommendation {...item} isVertical={true} />}
-              keyExtractor={(item) => item.id}
-              showsVerticalScrollIndicator={false}
-            />
+          <SafeAreaView edges={[]}>
+            <View style={styles.textPlaces}>
+              <Text style={styles.info}>Popular Destinations</Text>
+            </View>
+            <View tyle={styles.listContainer}>
+              <FlatList
+                data={filterCitiesByReview(true)}
+                renderItem={({ item }) => <City {...item} />}
+                keyExtractor={(item) => item.id}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
+            <View style={styles.textPlaces}>
+              <Text style={styles.info}>Recommendation</Text>
+            </View>
+            <View style={styles.recommendationListContainer}>
+              <FlatList
+                data={filterCitiesByReview(false)}
+                renderItem={({ item }) => (
+                  <CityRecommendation {...item} isVertical={true} />
+                )}
+                keyExtractor={(item) => item.id}
+                showsVerticalScrollIndicator={false}
+              />
+            </View>
           </SafeAreaView>
         </>
       ) : (
@@ -102,6 +106,10 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 50,
   },
+  user: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -126,8 +134,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 25,
   },
+  bellSvg: {
+    position: "absolute",
+    top: 10,
+  },
   searchContainer: {
     paddingTop: 16,
+  },
+  searchSvg: {
+    position: "absolute",
+    left: 10,
+    top: 24,
   },
   input: {
     height: 40,
@@ -135,6 +152,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 12,
     borderRadius: 8,
+    paddingLeft: 40,
+  },
+  textPlaces: {
+    paddingTop: 10,
   },
   listContainer: {
     marginTop: 15,

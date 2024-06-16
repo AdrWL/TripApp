@@ -22,7 +22,7 @@ export const MyProfileScreen = () => {
       <Text style={styles.title}>My Profile</Text>
       <View style={styles.row}>
         <Image source={profileImage} style={styles.image} />
-        <View style={{ flex: 1, paddingHorizontal: 10 }}>
+        <View style={styles.user}>
           <Text style={styles.name}>Shane Watson</Text>
           <Text style={styles.email}>shanewatson@example.com</Text>
         </View>
@@ -114,6 +114,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     position: "absolute",
     top: 2,
+  },
+  user: {
+    flex: 1, 
+    paddingHorizontal: 10
   },
   name: {
     fontSize: 18,
