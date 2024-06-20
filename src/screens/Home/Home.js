@@ -17,7 +17,7 @@ import { CITIES } from "../../data/Cities.js";
 export const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
-
+  
   useEffect(() => {
     if (searchQuery === "") {
       setFilteredCities([]);
@@ -52,11 +52,11 @@ export const HomeScreen = () => {
       </View>
       {searchQuery === "" ? (
         <>
-          <SafeAreaView edges={[]}>
+          <SafeAreaView style={styles.safeAreaView} edges={[]}>
             <View style={styles.textPlaces}>
               <Text style={styles.info}>Popular Destinations</Text>
             </View>
-            <View tyle={styles.listContainer}>
+            <View style={styles.listContainer}>
               <FlatList
                 data={filterCitiesByReview(true)}
                 renderItem={({ item }) => <City {...item} />}
@@ -145,6 +145,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 10,
     top: 24,
+  },
+  safeAreaView: {
+    flex: 1,
   },
   input: {
     height: 40,
