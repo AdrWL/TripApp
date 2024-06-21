@@ -14,10 +14,10 @@ import { filterCitiesByReview } from "../../data/FilterCities.js";
 import { City, CityRecommendation } from "../Home/CityFilter.js";
 import { CITIES } from "../../data/Cities.js";
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ darkMode }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
-  
+
   useEffect(() => {
     if (searchQuery === "") {
       setFilteredCities([]);
@@ -28,6 +28,8 @@ export const HomeScreen = () => {
       setFilteredCities(results);
     }
   }, [searchQuery]);
+
+  const styles = darkMode ? stylesDark : stylesLight;
 
   return (
     <View style={styles.container}>
@@ -59,7 +61,7 @@ export const HomeScreen = () => {
             <View style={styles.listContainer}>
               <FlatList
                 data={filterCitiesByReview(true)}
-                renderItem={({ item }) => <City {...item} />}
+                renderItem={({ item }) => <City {...item} darkMode={darkMode} />}
                 keyExtractor={(item) => item.id}
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -72,7 +74,7 @@ export const HomeScreen = () => {
               <FlatList
                 data={filterCitiesByReview(false)}
                 renderItem={({ item }) => (
-                  <CityRecommendation {...item} isVertical={true} />
+                  <CityRecommendation {...item} isVertical={true} darkMode={darkMode} />
                 )}
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
@@ -87,7 +89,7 @@ export const HomeScreen = () => {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.citySearch}>
-                <City {...item} />
+                <City {...item} darkMode={darkMode} />
               </View>
             )}
             keyExtractor={(item) => item.id}
@@ -98,13 +100,13 @@ export const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const stylesCommon = {
   container: {
     flex: 1,
+    marginTop: 50,
     paddingTop: 20,
     paddingRight: 20,
     paddingLeft: 20,
-    marginTop: 50,
   },
   user: {
     flex: 1,
@@ -121,7 +123,6 @@ const styles = StyleSheet.create({
   },
   hello: {
     fontSize: 12,
-    color: "#666",
   },
   info: {
     fontSize: 14,
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
   bell: {
     width: 40,
     height: 40,
-    backgroundColor: "#fff",
     alignItems: "center",
     borderRadius: 25,
   },
@@ -151,7 +151,6 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: "#ccc",
     borderWidth: 1,
     padding: 12,
     borderRadius: 8,
@@ -174,5 +173,52 @@ const styles = StyleSheet.create({
   },
   citySearch: {
     marginBottom: 15,
+  },
+};
+
+const stylesLight = StyleSheet.create({
+  ...stylesCommon,
+  container: {
+    ...stylesCommon.container,
+  },
+  hello: {
+    ...stylesCommon.hello,
+    color: "#666",
+  },
+  info: {
+    ...stylesCommon.info,
+    color: "#000",
+  },
+  bell: {
+    ...stylesCommon.bell,
+    backgroundColor: "#fff",
+  },
+  input: {
+    ...stylesCommon.input,
+    borderColor: "#ccc",
+  },
+});
+
+const stylesDark = StyleSheet.create({
+  ...stylesCommon,
+  container: {
+    ...stylesCommon.container,
+    backgroundColor: "#000",
+  },
+  hello: {
+    ...stylesCommon.hello,
+    color: "#ccc",
+  },
+  info: {
+    ...stylesCommon.info,
+    color: "#fff",
+  },
+  bell: {
+    ...stylesCommon.bell,
+    backgroundColor: "#333",
+  },
+  input: {
+    ...stylesCommon.input,
+    borderColor: "#555",
   },
 });

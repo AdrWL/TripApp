@@ -6,25 +6,27 @@ import { HomeIcon, UserCircleIcon } from '../../assets/icons/index';
 
 const Tab = createBottomTabNavigator();
 
-export const BottomTabNavigator = () => {
+export const BottomTabNavigator = ({ darkMode, setDarkMode }) => {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, focused }) => <HomeIcon stroke={focused ? '#285dfb' : color} width={33} height={24} />
         }}
-      />
+      >
+        {(props) => <HomeScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
+      </Tab.Screen>
       <Tab.Screen
         name="Profile"
-        component={MyProfileScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => <UserCircleIcon stroke={focused ? '#285dfb' : color} width={24} height={24} />
+          tabBarIcon: ({ color, focused }) => <UserCircleIcon stroke={focused ? '#285dfb' : color} width={24} height={24} />,
         }}
-      />
+      >
+        {(props) => <MyProfileScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };

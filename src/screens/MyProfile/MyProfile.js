@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,17 @@ import {
 import profileImage from "../../../assets/images/profile.jpg";
 import { DarkModeButton, LogoutButton } from "../../../assets/icons/index";
 import { CustomSwitch } from "./CustomSwitch";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const MyProfileScreen = () => {
-  const [darkMode, setDarkMode] = useState(false);
+export const MyProfileScreen = ({ darkMode, setDarkMode }) => {
+  useEffect(() => {
+    const saveDarkMode = async () => {
+      await AsyncStorage.setItem("darkMode", JSON.stringify(darkMode));
+    };
+    saveDarkMode();
+  }, [darkMode]);
+
+  const styles = darkMode ? stylesDark : stylesLight;
 
   const handleLogout = () => {
     console.log("Logout button pressed");
@@ -45,7 +53,7 @@ export const MyProfileScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const stylesCommon = {
   container: {
     flex: 1,
     padding: 20,
@@ -116,8 +124,8 @@ const styles = StyleSheet.create({
     top: 2,
   },
   user: {
-    flex: 1, 
-    paddingHorizontal: 10
+    flex: 1,
+    paddingHorizontal: 10,
   },
   name: {
     fontSize: 18,
@@ -125,5 +133,112 @@ const styles = StyleSheet.create({
   },
   email: {
     fontSize: 16,
+  },
+};
+
+const stylesLight = StyleSheet.create({
+  ...stylesCommon,
+  container: {
+    ...stylesCommon.container,
+  },
+  title: {
+    ...stylesCommon.title,
+    color: "#000",
+  },
+  line: {
+    ...stylesCommon.line,
+    backgroundColor: "#ccc",
+  },
+  textButton: {
+    ...stylesCommon.textButton,
+    color: "#000",
+  },
+  textButtonLogout: {
+    ...stylesCommon.textButtonLogout,
+    color: "red",
+  },
+  row: {
+    ...stylesCommon.row,
+  },
+  iconContainer: {
+    ...stylesCommon.iconContainer,
+  },
+  iconContainerLogout: {
+    ...stylesCommon.iconContainerLogout,
+    backgroundColor: "#ffe7f1",
+  },
+  logoutButtonIcon: {
+    ...stylesCommon.logoutButtonIcon,
+  },
+  switchContainer: {
+    ...stylesCommon.switchContainer,
+  },
+  thumb: {
+    ...stylesCommon.thumb,
+  },
+  user: {
+    ...stylesCommon.user,
+  },
+  name: {
+    ...stylesCommon.name,
+    color: "#000",
+  },
+  email: {
+    ...stylesCommon.email,
+    color: "#666",
+  },
+});
+
+const stylesDark = StyleSheet.create({
+  ...stylesCommon,
+  container: {
+    ...stylesCommon.container,
+    backgroundColor: "#000",
+  },
+  title: {
+    ...stylesCommon.title,
+    color: "#fff",
+  },
+  line: {
+    ...stylesCommon.line,
+    backgroundColor: "#555",
+  },
+  textButton: {
+    ...stylesCommon.textButton,
+    color: "#fff",
+  },
+  textButtonLogout: {
+    ...stylesCommon.textButtonLogout,
+    color: "red",
+  },
+  row: {
+    ...stylesCommon.row,
+  },
+  iconContainer: {
+    ...stylesCommon.iconContainer,
+  },
+  iconContainerLogout: {
+    ...stylesCommon.iconContainerLogout,
+    backgroundColor: "#333",
+  },
+  logoutButtonIcon: {
+    ...stylesCommon.logoutButtonIcon,
+  },
+  switchContainer: {
+    ...stylesCommon.switchContainer,
+  },
+  thumb: {
+    ...stylesCommon.thumb,
+  },
+  user: {
+    ...stylesCommon.user,
+  },
+  name: {
+    ...stylesCommon.name,
+    color: "#fff",
+  },
+  email: {
+    ...stylesCommon.email,
+    color: "#ccc",
   },
 });
