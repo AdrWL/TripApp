@@ -1,24 +1,10 @@
-import React, { useEffect } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import profileImage from "../../../assets/images/profile.jpg";
 import { DarkModeButton, LogoutButton } from "../../../assets/icons/index";
 import { CustomSwitch } from "./CustomSwitch";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const MyProfileScreen = ({ darkMode, setDarkMode }) => {
-  useEffect(() => {
-    const saveDarkMode = async () => {
-      await AsyncStorage.setItem("darkMode", JSON.stringify(darkMode));
-    };
-    saveDarkMode();
-  }, [darkMode]);
-
   const styles = darkMode ? stylesDark : stylesLight;
 
   const handleLogout = () => {
@@ -26,38 +12,54 @@ export const MyProfileScreen = ({ darkMode, setDarkMode }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>My Profile</Text>
-      <View style={styles.row}>
-        <Image source={profileImage} style={styles.image} />
-        <View style={styles.user}>
-          <Text style={styles.name}>Shane Watson</Text>
-          <Text style={styles.email}>shanewatson@example.com</Text>
+    <View style={styles.outerContainer}>
+      <View style={styles.blackBackground}></View>
+      <View style={styles.container}>
+        <Text style={styles.title}>My Profile</Text>
+        <View style={styles.row}>
+          <Image source={profileImage} style={styles.image} />
+          <View style={styles.user}>
+            <Text style={styles.name}>Shane Watson</Text>
+            <Text style={styles.email}>shanewatson@example.com</Text>
+          </View>
         </View>
+        <View style={styles.line} />
+        <View style={styles.row}>
+          <View style={styles.iconContainer}>
+            <DarkModeButton
+              fill={darkMode ? "#242528" : "#fff"}
+              strokes={darkMode ? "#fff" : "#080613"}
+            />
+          </View>
+          <Text style={styles.textButton}>Dark Mode</Text>
+          <CustomSwitch value={darkMode} onValueChange={setDarkMode} />
+        </View>
+        <TouchableOpacity onPress={handleLogout} style={styles.row}>
+          <View style={styles.iconContainerLogout}>
+            <LogoutButton style={styles.logoutButtonIcon} />
+          </View>
+          <Text style={styles.textButtonLogout}>Logout</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.line} />
-      <View style={styles.row}>
-        <View style={styles.iconContainer}>
-          <DarkModeButton />
-        </View>
-        <Text style={styles.textButton}>Dark Mode</Text>
-        <CustomSwitch value={darkMode} onValueChange={setDarkMode} />
-      </View>
-      <TouchableOpacity onPress={handleLogout} style={styles.row}>
-        <View style={styles.iconContainerLogout}>
-          <LogoutButton style={styles.logoutButtonIcon} />
-        </View>
-        <Text style={styles.textButtonLogout}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
 
 const stylesCommon = {
+  outerContainer: {
+    flex: 1,
+  },
+  blackBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 50,
+  },
   container: {
     flex: 1,
     padding: 20,
-    marginTop: 50,
+    marginTop: 40,
   },
   title: {
     fontSize: 22,
@@ -138,9 +140,6 @@ const stylesCommon = {
 
 const stylesLight = StyleSheet.create({
   ...stylesCommon,
-  container: {
-    ...stylesCommon.container,
-  },
   title: {
     ...stylesCommon.title,
     color: "#000",
@@ -157,27 +156,9 @@ const stylesLight = StyleSheet.create({
     ...stylesCommon.textButtonLogout,
     color: "red",
   },
-  row: {
-    ...stylesCommon.row,
-  },
-  iconContainer: {
-    ...stylesCommon.iconContainer,
-  },
   iconContainerLogout: {
     ...stylesCommon.iconContainerLogout,
     backgroundColor: "#ffe7f1",
-  },
-  logoutButtonIcon: {
-    ...stylesCommon.logoutButtonIcon,
-  },
-  switchContainer: {
-    ...stylesCommon.switchContainer,
-  },
-  thumb: {
-    ...stylesCommon.thumb,
-  },
-  user: {
-    ...stylesCommon.user,
   },
   name: {
     ...stylesCommon.name,
@@ -191,6 +172,14 @@ const stylesLight = StyleSheet.create({
 
 const stylesDark = StyleSheet.create({
   ...stylesCommon,
+  blackBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 50,
+    backgroundColor: "#000",
+  },
   container: {
     ...stylesCommon.container,
     backgroundColor: "#000",
@@ -211,27 +200,9 @@ const stylesDark = StyleSheet.create({
     ...stylesCommon.textButtonLogout,
     color: "red",
   },
-  row: {
-    ...stylesCommon.row,
-  },
-  iconContainer: {
-    ...stylesCommon.iconContainer,
-  },
   iconContainerLogout: {
     ...stylesCommon.iconContainerLogout,
-    backgroundColor: "#333",
-  },
-  logoutButtonIcon: {
-    ...stylesCommon.logoutButtonIcon,
-  },
-  switchContainer: {
-    ...stylesCommon.switchContainer,
-  },
-  thumb: {
-    ...stylesCommon.thumb,
-  },
-  user: {
-    ...stylesCommon.user,
+    backgroundColor: "#fff",
   },
   name: {
     ...stylesCommon.name,

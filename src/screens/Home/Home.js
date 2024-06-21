@@ -32,78 +32,92 @@ export const HomeScreen = ({ darkMode }) => {
   const styles = darkMode ? stylesDark : stylesLight;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <Image source={profileImage} style={styles.image} />
-        <View style={styles.user}>
-          <Text style={styles.hello}>Hello, Shane</Text>
-          <Text style={styles.info}>Where do you want to go?</Text>
+    <View style={styles.outerContainer}>
+      <View style={styles.blackBackground}></View>
+      <View style={styles.container}>
+        <View style={styles.row}>
+          <Image source={profileImage} style={styles.image} />
+          <View style={styles.user}>
+            <Text style={styles.hello}>Hello, Shane</Text>
+            <Text style={styles.info}>Where do you want to go?</Text>
+          </View>
+          <View style={styles.bell}>
+            <Bell style={styles.bellSvg} stroke={darkMode ? "#fff" : "#000"} />
+          </View>
         </View>
-        <View style={styles.bell}>
-          <Bell style={styles.bellSvg} />
-        </View>
-      </View>
-      <View style={styles.searchContainer}>
-        <Search style={styles.searchSvg} />
-        <TextInput
-          value={searchQuery}
-          onChangeText={(text) => setSearchQuery(text)}
-          placeholder="Search"
-          style={[styles.input]}
-        />
-      </View>
-      {searchQuery === "" ? (
-        <>
-          <SafeAreaView style={styles.safeAreaView} edges={[]}>
-            <View style={styles.textPlaces}>
-              <Text style={styles.info}>Popular Destinations</Text>
-            </View>
-            <View style={styles.listContainer}>
-              <FlatList
-                data={filterCitiesByReview(true)}
-                renderItem={({ item }) => <City {...item} darkMode={darkMode} />}
-                keyExtractor={(item) => item.id}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-              />
-            </View>
-            <View style={styles.textPlaces}>
-              <Text style={styles.info}>Recommendation</Text>
-            </View>
-            <View style={styles.recommendationListContainer}>
-              <FlatList
-                data={filterCitiesByReview(false)}
-                renderItem={({ item }) => (
-                  <CityRecommendation {...item} isVertical={true} darkMode={darkMode} />
-                )}
-                keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-              />
-            </View>
-          </SafeAreaView>
-        </>
-      ) : (
-        <SafeAreaView style={styles.searchResultsContainer} edges={[]}>
-          <FlatList
-            data={filteredCities}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <View style={styles.citySearch}>
-                <City {...item} darkMode={darkMode} />
-              </View>
-            )}
-            keyExtractor={(item) => item.id}
+        <View style={styles.searchContainer}>
+          <Search style={styles.searchSvg} stroke={darkMode ? "#fff" : "#000"} />
+          <TextInput
+            value={searchQuery}
+            onChangeText={(text) => setSearchQuery(text)}
+            placeholder="Search"
+            placeholderTextColor={darkMode ? "#353541" : "#999"}
+            style={[styles.input]}
           />
-        </SafeAreaView>
-      )}
+        </View>
+        {searchQuery === "" ? (
+          <>
+            <SafeAreaView style={styles.safeAreaView} edges={[]}>
+              <View style={styles.textPlaces}>
+                <Text style={styles.info}>Popular Destinations</Text>
+              </View>
+              <View style={styles.listContainer}>
+                <FlatList
+                  data={filterCitiesByReview(true)}
+                  renderItem={({ item }) => <City {...item} darkMode={darkMode} />}
+                  keyExtractor={(item) => item.id}
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                />
+              </View>
+              <View style={styles.textPlaces}>
+                <Text style={styles.info}>Recommendation</Text>
+              </View>
+              <View style={styles.recommendationListContainer}>
+                <FlatList
+                  data={filterCitiesByReview(false)}
+                  renderItem={({ item }) => (
+                    <CityRecommendation {...item} isVertical={true} darkMode={darkMode} />
+                  )}
+                  keyExtractor={(item) => item.id}
+                  showsVerticalScrollIndicator={false}
+                />
+              </View>
+            </SafeAreaView>
+          </>
+        ) : (
+          <SafeAreaView style={styles.searchResultsContainer} edges={[]}>
+            <FlatList
+              data={filteredCities}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <View style={styles.citySearch}>
+                  <City {...item} darkMode={darkMode} />
+                </View>
+              )}
+              keyExtractor={(item) => item.id}
+            />
+          </SafeAreaView>
+        )}
+      </View>
     </View>
   );
 };
 
 const stylesCommon = {
+  outerContainer: {
+    flex: 1,
+  },
+  blackBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 50,
+  },
   container: {
     flex: 1,
-    marginTop: 50,
+    marginTop: 40,
     paddingTop: 20,
     paddingRight: 20,
     paddingLeft: 20,
@@ -178,9 +192,6 @@ const stylesCommon = {
 
 const stylesLight = StyleSheet.create({
   ...stylesCommon,
-  container: {
-    ...stylesCommon.container,
-  },
   hello: {
     ...stylesCommon.hello,
     color: "#666",
@@ -201,13 +212,21 @@ const stylesLight = StyleSheet.create({
 
 const stylesDark = StyleSheet.create({
   ...stylesCommon,
+  blackBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 50,
+    backgroundColor: '#000',
+  },
   container: {
     ...stylesCommon.container,
     backgroundColor: "#000",
   },
   hello: {
     ...stylesCommon.hello,
-    color: "#ccc",
+    color: "#4f4e51",
   },
   info: {
     ...stylesCommon.info,
@@ -215,10 +234,13 @@ const stylesDark = StyleSheet.create({
   },
   bell: {
     ...stylesCommon.bell,
-    backgroundColor: "#333",
+    backgroundColor: "#000",
+    borderColor: "#1b1a22",
+    borderWidth: 1,
   },
   input: {
     ...stylesCommon.input,
     borderColor: "#555",
+    color: "#fff",
   },
 });

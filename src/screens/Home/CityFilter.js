@@ -15,12 +15,12 @@ export const City = ({ city, image, price, persons, location, rating, review, da
       <View style={styles.textContainer}>
         <View style={styles.rowCity}>
           <Text style={styles.city}>{city}</Text>
-          <Text style={styles.price}>
-            <Text style={{ color: darkMode ? "#00F" : "#0000FF", fontWeight: "bold" }}>{price}</Text>/{persons}
+          <Text>
+            <Text style={styles.price}>{price}</Text><Text style={styles.location}>/{persons}</Text>
           </Text>
         </View>
         <View style={styles.locationContainer}>
-          <Location />
+        <Location fill={darkMode ? "#fff" : "#080613"} />
           <Text style={styles.location}>{location}</Text>
         </View>
         <Text style={styles.rating}>⭐ {rating} ({review}k Review)</Text>
@@ -40,10 +40,10 @@ export const CityRecommendation = ({ city, image, price, persons, location, rati
           <View style={styles.infoContainer}>
             <Text style={styles.city}>{city}</Text>
             <Text>
-              <Text style={{ color: darkMode ? "#00F" : "#0000FF", fontWeight: "bold" }}>{price}</Text>/{persons}
+              <Text style={styles.price}>{price}</Text ><Text style={styles.location}>/{persons}</Text>
             </Text>
             <View style={styles.locationContainer}>
-              <Location />
+            <Location fill={darkMode ? "#fff" : "#080613"} />
               <Text style={styles.location}>{location}</Text>
             </View>
             <Text style={styles.rating}>⭐ {rating} ({review}k Review)</Text>
@@ -107,8 +107,8 @@ const stylesCommon = {
     fontWeight: "bold",
   },
   price: {
-    fontSize: 12,
-    fontWeight: "normal",
+    fontSize: 14,
+    fontWeight: "bold"
   },
   locationContainer: {
     flexDirection: "row",
@@ -143,7 +143,7 @@ const stylesLight = StyleSheet.create({
   },
   price: {
     ...stylesCommon.price,
-    color: "#000",
+    color: "#5942dc",
   },
   location: {
     ...stylesCommon.location,
@@ -171,7 +171,7 @@ const stylesDark = StyleSheet.create({
   },
   price: {
     ...stylesCommon.price,
-    color: "#FFF",
+    color: "#5942dc",
   },
   location: {
     ...stylesCommon.location,
