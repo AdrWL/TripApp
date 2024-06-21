@@ -1,26 +1,22 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 export const CustomSwitch = ({ value, onValueChange }) => {
+  const styles = createStyles(value);
+
   return (
-    <TouchableOpacity
-      onPress={() => onValueChange(!value)}
-      style={[
-        styles.switchContainer,
-        { backgroundColor: value ? "#4CAF50" : "#ccc" },
-      ]}
-    >
-      <View style={[styles.thumb, value ? { left: 22 } : { left: 2 }]} />
+    <TouchableOpacity onPress={() => onValueChange(!value)} style={styles.switchContainer}>
+      <View style={styles.thumb} />
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (value) => ({
   switchContainer: {
     width: 45,
     height: 24,
     borderRadius: 17,
-    backgroundColor: "#ccc",
+    backgroundColor: value ? "#4CAF50" : "#ccc",
     padding: 2,
     justifyContent: "center",
   },
@@ -31,5 +27,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     position: "absolute",
     top: 2,
+    left: value ? 22 : 2,
   },
 });

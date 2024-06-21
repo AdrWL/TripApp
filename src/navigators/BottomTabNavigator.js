@@ -7,36 +7,43 @@ import { HomeIcon, UserCircleIcon } from '../../assets/icons/index';
 const Tab = createBottomTabNavigator();
 
 export const BottomTabNavigator = ({ darkMode, setDarkMode }) => {
+
   return (
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: darkMode ? '#000' : '#fff',
-          },
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: darkMode ? createStyles.darkBackground : createStyles.lightBackground,
+        },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <HomeIcon stroke={focused ? createStyles.iconFocused : color} width={33} height={24} />
+          ),
         }}
       >
-        <Tab.Screen
-          name="Home"
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <HomeIcon stroke={focused ? '#285dfb' : color} width={33} height={24} />
-            ),
-          }}
-        >
-          {(props) => <HomeScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
-        </Tab.Screen>
-        <Tab.Screen
-          name="Profile"
-          options={{
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <UserCircleIcon stroke={focused ? '#285dfb' : color} width={24} height={24} />
-            ),
-          }}
-        >
-          {(props) => <MyProfileScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
-        </Tab.Screen>
-      </Tab.Navigator>
+        {(props) => <HomeScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Profile"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <UserCircleIcon stroke={focused ? createStyles.iconFocused : color} width={24} height={24} />
+          ),
+        }}
+      >
+        {(props) => <MyProfileScreen {...props} darkMode={darkMode} setDarkMode={setDarkMode} />}
+      </Tab.Screen>
+    </Tab.Navigator>
   );
+};
+
+const createStyles = {
+  darkBackground: '#000',
+  lightBackground: '#fff',
+  iconFocused: '#285dfb',
 };
